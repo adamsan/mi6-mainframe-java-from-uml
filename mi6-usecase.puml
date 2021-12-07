@@ -1,0 +1,42 @@
+@startuml
+left to right direction
+
+actor "Secret Agent 007" as Bond
+note top of Bond
+    Has access to:
+    Security Level ONE
+end note
+package "MI-6 mainframe" {
+  usecase UC1 as "Login with username, password"
+  (MD5 hash pw) .> (UC1) : <<include>>
+  (Alert for Invalid Access) as Alert
+  (UC1)  <. Alert : <<extends>>
+  usecase "Display menu" as UC2
+  usecase "List active missions" as UC3
+  usecase "Add new Mission" as UC_New
+  usecase "Mark mission as completed" as UC4
+  usecase "Raise security alert" as Alert2
+  usecase "Exit" as UC5
+
+  Alert2 .> UC3 : <<extends>>
+  Alert2 .> UC_New : <<extends>>
+  Alert2 .> UC4 : <<extends>>
+}
+actor "Senior Agent M" as M
+Bond --> UC1
+Bond --> UC2
+Bond --> UC3
+Bond --> UC4
+Bond --> UC5
+
+UC1 <-- M
+UC2 <-- M
+UC3 <-- M
+UC4 <-- M
+UC_New <--- M
+UC5 <-- M
+note bottom of M
+    Has access to:
+    Security Level THREE
+end note
+@enduml
