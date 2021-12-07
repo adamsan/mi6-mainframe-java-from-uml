@@ -17,7 +17,6 @@ In order to view the UML documentation, install the Intellij plugin `PlantUML In
     - `src/main/java/com/codecool/mi6/services/services.plantuml`
     - `src/main/java/com/codecool/mi6/models/models.plantuml`
  - Sequence diagrams:
-    - `Sequence_diagram_App_main_all_togather.puml`
     -  `Sequence_diagram_App_main_login_and_add_new_mission.puml`
     -  `Sequence_diagram_App_main_login_and_deactivate.puml`
     -  `Sequence_diagram_App_main_login_and_list_missions.puml`
