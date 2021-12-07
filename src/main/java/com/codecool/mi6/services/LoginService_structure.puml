@@ -1,0 +1,193 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": false,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": false,
+    "cutConstructors": false
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.codecool.mi6.services.LoginService"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_867524938 { 
+   	label=codecool
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1407640290 { 
+   	label=mi6
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   App1939028433[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)App</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   loginService: LoginService [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   missionService: MissionService [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   scanner: Scanner [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ App(scanner: Scanner)</TD></TR>
+<TR><TD ALIGN="LEFT" >- listMissions(credential: Credential)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ main(args: String[])</TD></TR>
+<TR><TD ALIGN="LEFT" >- promptForLogin(): Credential</TD></TR>
+<TR><TD ALIGN="LEFT" >- promptForMissionToDeactivate(credential: Credential)</TD></TR>
+<TR><TD ALIGN="LEFT" >- promptForNewMissionToAdd(credential: Credential)</TD></TR>
+<TR><TD ALIGN="LEFT" >- promptMenuChoice(): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ start()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ConsoleAlertService1250869565[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ConsoleAlertService</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ raiseSecurityAlert(cause: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+InMemoryCredentialStore1767014481[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)InMemoryCredentialStore</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   data: Map&lt;String, String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   levels: Map&lt;String, SecurityLevel&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ InMemoryCredentialStore()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ find(userName: String, hash: String): Credential</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+LoginService1250869565[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)LoginService</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   alertService: AlertService [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   credentials: CredentialStore [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   md5: DigestUtils [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ LoginService(credentials: CredentialStore, alertService: AlertService)</TD></TR>
+<TR><TD ALIGN="LEFT" >- hashPassword(password: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ login(userName: String, password: String): Credential</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SecurityLevel1590281993[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(E)SecurityLevel</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   INVALID: SecurityLevel [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   ONE: SecurityLevel [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   THREE: SecurityLevel [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   TWO: SecurityLevel [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ valueOf(name: String): SecurityLevel</TD></TR>
+<TR><TD ALIGN="LEFT" >+ values(): SecurityLevel[]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#DCFBD5"
+];
+} 
+} 
+
+'edges    
+App1939028433 -> LoginService1250869565[label="loginService
+[0..1]"];
+InMemoryCredentialStore1767014481 -> SecurityLevel1590281993[label="levels
+[0..*]"];
+LoginService1250869565 -> ConsoleAlertService1250869565[arrowhead=none, arrowtail=empty, dir=both];
+LoginService1250869565 -> InMemoryCredentialStore1767014481[arrowhead=none, arrowtail=empty, dir=both];
+    
+}
+@enduml
