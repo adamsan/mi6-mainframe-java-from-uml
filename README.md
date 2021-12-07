@@ -5,7 +5,7 @@
 Good morning, Agent Q,
 Based on the UML documentation, implement a simple application for MI6.
 
-=========
+---
 
 In order to view the UML documentation, install the Intellij plugin `PlantUML Integration` plugin.
 
