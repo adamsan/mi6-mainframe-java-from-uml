@@ -1,0 +1,60 @@
+@startuml
+participant Actor
+Actor -> App : main
+activate App
+App -> App : start
+activate App
+App -> App : promptForLogin
+activate App
+App -> LoginService : login
+activate LoginService
+LoginService -> LoginService : hashPassword
+activate LoginService
+LoginService --> LoginService
+deactivate LoginService
+LoginService -> CredentialStore : find
+activate CredentialStore
+CredentialStore --> LoginService
+deactivate CredentialStore
+LoginService -> AlertService : raiseSecurityAlert
+activate AlertService
+AlertService -> ConsoleAlertService : raiseSecurityAlert
+activate ConsoleAlertService
+ConsoleAlertService --> AlertService
+deactivate ConsoleAlertService
+AlertService --> LoginService
+deactivate AlertService
+LoginService --> App
+deactivate LoginService
+App --> App
+deactivate App
+App -> App : promptMenuChoice
+activate App
+deactivate App
+App --> App
+deactivate App
+App -> App : promptForNewMissionToAddMission
+activate App
+App -> MissionService : addMission
+activate MissionService
+MissionService -> MissionStore : save
+activate MissionStore
+MissionStore -> InMemoryMissionStore : save
+activate InMemoryMissionStore
+InMemoryMissionStore --> MissionStore
+deactivate InMemoryMissionStore
+MissionStore --> MissionService
+deactivate MissionStore
+MissionService -> AlertService : raiseSecurityAlert
+activate AlertService
+AlertService -> ConsoleAlertService : raiseSecurityAlert
+activate ConsoleAlertService
+ConsoleAlertService --> AlertService
+deactivate ConsoleAlertService
+AlertService --> MissionService
+deactivate AlertService
+MissionService --> App
+deactivate MissionService
+deactivate App
+return
+@enduml

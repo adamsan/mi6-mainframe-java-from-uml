@@ -1,0 +1,72 @@
+@startuml
+participant Actor
+Actor -> App : main
+activate App
+App -> App : start
+activate App
+App -> App : promptForLogin
+activate App
+App -> LoginService : login
+activate LoginService
+LoginService -> LoginService : hashPassword
+activate LoginService
+LoginService --> LoginService
+deactivate LoginService
+LoginService -> CredentialStore : find
+activate CredentialStore
+CredentialStore --> LoginService
+deactivate CredentialStore
+LoginService -> AlertService : raiseSecurityAlert
+activate AlertService
+AlertService -> ConsoleAlertService : raiseSecurityAlert
+activate ConsoleAlertService
+ConsoleAlertService --> AlertService
+deactivate ConsoleAlertService
+AlertService --> LoginService
+deactivate AlertService
+LoginService --> App
+deactivate LoginService
+App --> App
+deactivate App
+App -> App : promptMenuChoice
+activate App
+App -> App : promptForMissionToDeactivate
+activate App
+App -> MissionService : deactivate
+activate MissionService
+MissionService -> MissionStore : findByTitle
+activate MissionStore
+MissionStore -> InMemoryMissionStore : findByTitle
+activate InMemoryMissionStore
+InMemoryMissionStore -> InMemoryMissionStore : λ→
+activate InMemoryMissionStore
+InMemoryMissionStore --> InMemoryMissionStore
+deactivate InMemoryMissionStore
+InMemoryMissionStore --> MissionStore
+deactivate InMemoryMissionStore
+MissionStore --> MissionService
+deactivate MissionStore
+MissionService -> MissionStore : update
+activate MissionStore
+MissionStore -> InMemoryMissionStore : update
+activate InMemoryMissionStore
+InMemoryMissionStore --> MissionStore
+deactivate InMemoryMissionStore
+MissionStore --> MissionService
+deactivate MissionStore
+MissionService -> AlertService : raiseSecurityAlert
+activate AlertService
+AlertService -> ConsoleAlertService : raiseSecurityAlert
+activate ConsoleAlertService
+ConsoleAlertService --> AlertService
+deactivate ConsoleAlertService
+AlertService --> MissionService
+deactivate AlertService
+MissionService --> App
+deactivate MissionService
+deactivate App
+MissionService --> App
+deactivate App
+deactivate App
+return
+@enduml
